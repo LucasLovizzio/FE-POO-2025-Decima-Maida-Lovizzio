@@ -15,8 +15,8 @@ export {
 export type {
   LoginRequest,
   AuthResponse,
-  RegisterParticipantRequest,
-  RegisterParticipantResponse,
+  CreateParticipantRequest,
+  CreateParticipantResponse,
   AdminLoginRequest,
   CreateAdminRequest,
   CreateAdminResponse,
@@ -41,8 +41,7 @@ export type {
 // Competition
 export type {
   Competition,
-  CreateCompetitionRequest,
-  UpdateCompetitionRequest,
+  CompetitionRequest,
   CompetitionResponse,
   CompetitionList,
 } from './competition'
@@ -57,13 +56,18 @@ export type {
 
 // Tipos auxiliares
 /**
- * Response de error del backend
+ * Response base de excepción del backend
  */
-export interface ErrorResponse {
+export interface ExceptionResponse {
   message: string
 }
 
 /**
+ * Response de error del backend
+ */
+export type ErrorResponse = ExceptionResponse
+
+/**
  * Respuesta vacía (para 204 No Content)
  */
-export type EmptyResponse = undefined
+export type EmptyResponse = void

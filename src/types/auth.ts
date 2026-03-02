@@ -16,7 +16,7 @@ export type AuthResponse = {
 }
 
 // Request para crear una cuenta de participante
-export type RegisterParticipantRequest = {
+export type CreateParticipantRequest = {
   email: string
   password: string
   name?: string
@@ -26,7 +26,7 @@ export type RegisterParticipantRequest = {
 }
 
 // Response al crear un participante
-export type RegisterParticipantResponse = {
+export type CreateParticipantResponse = {
   id: number
   email: string
 }

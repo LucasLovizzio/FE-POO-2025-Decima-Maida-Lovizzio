@@ -13,18 +13,9 @@ export interface Competition {
 }
 
 /**
- * Request para crear una competencia
+ * Request para crear/actualizar una competencia
  */
-export type CreateCompetitionRequest = {
-  name: string
-  basePrice: number
-  capacity: number
-}
-
-/**
- * Request para actualizar una competencia
- */
-export type UpdateCompetitionRequest = {
+export type CompetitionRequest = {
   name: string
   basePrice: number
   capacity: number
