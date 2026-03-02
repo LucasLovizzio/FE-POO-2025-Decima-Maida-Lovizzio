@@ -71,3 +71,6 @@ export type ErrorResponse = ExceptionResponse
  * Respuesta vacía (para 204 No Content)
  */
 export type EmptyResponse = void
+
+export class CreateInscriptionRequest {
+}

@@ -41,6 +41,12 @@ export interface InscriptionDetailResponse {
   tournamentStartDate: string
   tournamentFinishDate: string
 }
+/**
+ * Request para crear una inscripción
+ */
+export type CreateInscriptionRequest = {
+  competitionId: number
+}
 
 /**
  * Lista de inscripciones

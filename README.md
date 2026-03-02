@@ -50,7 +50,7 @@ npm install
 
 3. Configurar variables de entorno:
 ```bash
-cp .env.example .env
+cp .env .env
 ```
 
 Editar el archivo `.env` con las configuraciones necesarias.
