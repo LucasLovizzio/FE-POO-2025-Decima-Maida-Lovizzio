@@ -12,7 +12,7 @@ export type LoginRequest = {
 
 // Response de autenticación (contiene el token JWT)
 export type AuthResponse = {
-  token: string // "Bearer <jwt_token>"
+  token: string // JWT sin prefijo "Bearer"
 }
 
 // Request para crear una cuenta de participante
