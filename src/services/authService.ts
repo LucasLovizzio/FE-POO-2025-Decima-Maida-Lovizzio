@@ -10,11 +10,11 @@ import type {
 
 export const authService = {
   loginParticipant: (data: LoginRequest) =>
-    api.post<AuthResponse>("/auth/login", data),
+    api.post<AuthResponse>("/auth", data),
 
   loginAdmin: (data: AdminLoginRequest) =>
-    api.post<AuthResponse>("/auth/admin/login", data),
+    api.post<AuthResponse>("/admin/auth", data),
 
   registerParticipant: (data: CreateParticipantRequest) =>
-    api.post<CreateParticipantResponse>("/auth/register", data),
+    api.post<CreateParticipantResponse>("/account", data),
 }
