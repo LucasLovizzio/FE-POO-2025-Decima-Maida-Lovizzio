@@ -28,6 +28,7 @@ export type CreateTournamentRequest = {
   endDate: string // formato ISO LocalDateTime
 }
 
+
 /**
  * Response de un torneo (respuesta del backend)
  */
