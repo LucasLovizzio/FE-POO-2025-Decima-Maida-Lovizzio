@@ -13,7 +13,7 @@ export const authService = {
     api.post<AuthResponse>("/auth", data),
 
   loginAdmin: (data: AdminLoginRequest) =>
-    api.post<AuthResponse>("/admin/login", data),
+    api.post<AuthResponse>("/admin/auth", data),
 
   registerParticipant: (data: CreateParticipantRequest) =>
     api.post<CreateParticipantResponse>("/account", data),
