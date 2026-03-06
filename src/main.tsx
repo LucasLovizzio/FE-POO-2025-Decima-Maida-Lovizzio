@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import AdminPage from "./pages/AdminPage";
 import ParticipantPage from "./pages/ParticipantPage";
 import LoginPage from "./pages/LoginPage";
+import DetalleTorneoAdmin from "./pages/DetalleTorneoAdmin"
+
 
 import "./index.css";
 
@@ -45,6 +47,15 @@ createRoot(document.getElementById("root")!).render(
               <ParticipantRoute>
                 <ParticipantPage />
               </ParticipantRoute>
+            }
+          />
+
+          <Route
+            path="/admin/tournaments/:id"
+            element={
+              <AdminRoute>
+                <DetalleTorneoAdmin />
+              </AdminRoute>
             }
           />
 
