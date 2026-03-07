@@ -20,7 +20,7 @@ function DetalleTorneoAdmin() {
   // traer competencias del torneo
   useEffect(() => {
     if (id) {
-      competitionService.getByTournament(Number(id))
+      competitionService.getAll(Number(id))
         .then((res) => setCompetitions(res.data))
         .catch((err) => console.error(err))
     }

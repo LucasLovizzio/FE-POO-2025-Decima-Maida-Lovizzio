@@ -1,13 +1,7 @@
 import api from "./api"
-import type { CompetitionResponse,CompetitionRequest } from "../types"
+import type { CompetitionList,CompetitionResponse,CompetitionRequest } from "../types"
 
 export const competitionService = {
-  //trae competencias de torneo
-  getByTournament: (tournamentId: number) =>
-    api.get<CompetitionResponse[]>(`/tournaments/${tournamentId}/competitions`),
-
-  getById: (id: number) =>
-    api.get<CompetitionResponse>(`/competitions/${id}`),
 
   //crea competencia
   create: (tournamentId: number, data: CompetitionRequest) =>
@@ -19,4 +13,10 @@ export const competitionService = {
 
   update: (id: number, data: CompetitionRequest) =>
     api.put(`/competitions/${id}`, data),
+
+  getAll: (tournamentId: number) =>
+    api.get<CompetitionList>(`/tournaments/${tournamentId}/competitions`),
+
+  getById: (tournamentId: number, competitionId: number) =>
+    api.get<CompetitionResponse>(`/tournaments/${tournamentId}/competitions/${competitionId}`),
 }
