@@ -128,7 +128,6 @@ function AdminPage() {
                   isPublishing={publishingId === tournament.id}
                 />
 
-                {/* BOTON QUE AGREGASTE */}
                 <button
                   className="mt-2 w-full rounded bg-blue-500 py-2 text-white"
                   onClick={() =>
