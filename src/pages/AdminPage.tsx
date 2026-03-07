@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { adminService } from '../services/adminService'
 import type { TournamentResponse, CreateTournamentRequest } from '../types'
 import TournamentCard from '../components/TournamentCard'
