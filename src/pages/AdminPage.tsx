@@ -118,6 +118,8 @@ function AdminPage() {
 
         {isLoading ? (
           <p className="text-white">Cargando torneos...</p>
+        ) : tournaments.length === 0 ? (
+          <p className="text-white">No hay torneos creados aún.</p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tournaments.map((tournament) => (
