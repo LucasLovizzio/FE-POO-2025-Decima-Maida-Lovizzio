@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import AdminPage from "./pages/AdminPage";
 import ParticipantPage from "./pages/ParticipantPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from './pages/RegisterPage.tsx'
 
 import "./index.css";
 
@@ -27,6 +28,7 @@ createRoot(document.getElementById("root")!).render(
 
           {/* Login público */}
           <Route path="login" element={<LoginPage />} />
+          <Routes path="register" element={<RegisterPage />} />
 
           {/* Ruta solo ADMIN */}
           <Route
