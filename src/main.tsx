@@ -15,6 +15,7 @@ import DetalleTorneoAdmin from "./pages/DetalleTorneoAdmin"
 
 
 import "./index.css";
+import GestionAdmins from './pages/GestionAdmins.tsx'
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -55,6 +56,16 @@ createRoot(document.getElementById("root")!).render(
             element={
               <AdminRoute>
                 <DetalleTorneoAdmin />
+              </AdminRoute>
+            }
+          />
+
+          //solo puede entrar un admin logueado
+          <Route
+            path="/admin/accounts"
+            element={
+              <AdminRoute>
+                <GestionAdmins />
               </AdminRoute>
             }
           />
