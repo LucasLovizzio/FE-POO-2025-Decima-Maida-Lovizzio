@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { adminService } from '../services/adminService'
 import type { TournamentResponse, CreateTournamentRequest } from '../types'
 import TournamentCard from '../components/TournamentCard'
@@ -118,6 +118,8 @@ function AdminPage() {
 
         {isLoading ? (
           <p className="text-white">Cargando torneos...</p>
+        ) : tournaments.length === 0 ? (
+          <p className="text-white">No hay torneos creados aún.</p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tournaments.map((tournament) => (
@@ -128,7 +130,6 @@ function AdminPage() {
                   isPublishing={publishingId === tournament.id}
                 />
 
-                {/* BOTON QUE AGREGASTE */}
                 <button
                   className="mt-2 w-full rounded bg-blue-500 py-2 text-white"
                   onClick={() =>
