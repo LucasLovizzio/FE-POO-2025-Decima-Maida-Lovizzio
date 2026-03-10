@@ -18,6 +18,7 @@ import DetalleTorneoAdmin from "./pages/DetalleTorneoAdmin"
 
 import "./index.css";
 import GestionAdmins from './pages/GestionAdmins.tsx'
+import DetalleTorneoPage from './pages/DetalleTorneoPage.tsx'
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -31,8 +32,10 @@ createRoot(document.getElementById("root")!).render(
           </Route>
 
           {/* Login público */}
-          <Route path="login" element={<LoginPage />} />
-          <Routes path="register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+
+          <Route path="/tournaments/:id" element={<DetalleTorneoPage />} />
 
           {/* Ruta solo ADMIN */}
           <Route
@@ -72,7 +75,6 @@ createRoot(document.getElementById("root")!).render(
               </AdminRoute>
             }
           />
-
         </Routes>
       </AuthProvider>
     </BrowserRouter>

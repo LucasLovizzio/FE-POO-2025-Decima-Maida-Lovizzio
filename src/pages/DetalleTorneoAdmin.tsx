@@ -116,7 +116,6 @@ function DetalleTorneoAdmin() {
     }
   }
 
-
   return (
     <div>
 
