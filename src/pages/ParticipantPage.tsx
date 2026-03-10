@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { tournamentService } from '../services/tournamentService'
 import { competitionService } from '../services/competitionService'
 import { inscriptionService } from '../services/inscriptionService'
@@ -12,6 +13,7 @@ interface CompetitionWithTournament extends CompetitionResponse {
 }
 
 function ParticipantPage() {
+  const navigate = useNavigate()
   const [tournaments, setTournaments] = useState<TournamentResponse[]>([])
   const [competitions, setCompetitions] = useState<Map<number, CompetitionResponse[]>>(new Map())
   const [myInscriptions, setMyInscriptions] = useState<InscriptionResponse[]>([])
@@ -148,9 +150,17 @@ function ParticipantPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white">Torneos Disponibles</h1>
-          <p className="mt-2 text-blue-100">Inscríbete en las competencias que te interesen</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-white">Torneos Disponibles</h1>
+            <p className="mt-2 text-blue-100">Inscríbete en las competencias que te interesen</p>
+          </div>
+          <button
+            onClick={() => navigate('/participant/inscripciones')}
+            className="rounded-md bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg hover:bg-blue-50"
+          >
+            Mis Inscripciones
+          </button>
         </div>
 
         {/* Mensajes de feedback */}
