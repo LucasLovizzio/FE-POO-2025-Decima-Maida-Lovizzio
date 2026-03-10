@@ -1,12 +1,15 @@
 import type { TournamentResponse } from '../types'
+import { useNavigate } from 'react-router-dom';
 
 interface TournamentCardProps {
   tournament: TournamentResponse
-  onPublish: (id: number) => void
-  isPublishing: boolean
+  onPublish?: (id: number) => void
+  isPublishing?: boolean
 }
 
 function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardProps) {
+  const navigate = useNavigate();
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('es-ES', {
@@ -16,15 +19,23 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
     })
   }
 
+  const handleCardClick = () => {
+    navigate(`/tournaments/${tournament.id}`);
+  }
+
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
+    <div
+      onClick={handleCardClick}
+      className="cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
+    >
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-gray-800">{tournament.name}</h3>
-          <p className="mt-2 text-sm text-gray-600">{tournament.description}</p>
+          <h3 className="text-xl font-bold text-gray-800 transition-colors hover:text-blue-600">{tournament.name}</h3>
+          {/* Agregué un line-clamp-2 para que las descripciones muy largas no rompan el diseño */}
+          <p className="mt-2 text-sm text-gray-600 line-clamp-2">{tournament.description}</p>
         </div>
         <span
-          className={`ml-4 rounded-full px-3 py-1 text-xs font-semibold ${
+          className={`ml-4 whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold ${
             tournament.published
               ? 'bg-green-100 text-green-800'
               : 'bg-yellow-100 text-yellow-800'
@@ -73,11 +84,15 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
         </div>
       </div>
 
-      {!tournament.published && (
+      {/* Condicionamos que onPublish exista para mostrar el botón (solo lo verá el Admin) */}
+      {!tournament.published && onPublish && (
         <button
-          onClick={() => onPublish(tournament.id)}
+          onClick={(e) => {
+            e.stopPropagation(); // Evita que el clic en el botón active el onClick de la tarjeta
+            onPublish(tournament.id);
+          }}
           disabled={isPublishing}
-          className={`w-full rounded-md px-4 py-2 font-medium text-white transition-colors ${
+          className={`mt-4 w-full rounded-md px-4 py-2 font-medium text-white transition-colors ${
             isPublishing
               ? 'cursor-not-allowed bg-gray-400'
               : 'bg-blue-600 hover:bg-blue-700'
