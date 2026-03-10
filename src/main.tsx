@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage'
 
 import RegisterPage from './pages/RegisterPage.tsx'
 import DetalleTorneoAdmin from './pages/DetalleTorneoAdmin'
+import GestionAdmins from './pages/GestionAdmins.tsx'
 
 import './index.css'
 
@@ -59,6 +60,17 @@ createRoot(document.getElementById('root')!).render(
               </AdminRoute>
             }
           />
+
+          //solo puede entrar un admin logueado
+          <Route
+            path="/admin/accounts"
+            element={
+              <AdminRoute>
+                <GestionAdmins />
+              </AdminRoute>
+            }
+          />
+
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -73,3 +73,8 @@ export type ErrorResponse = ExceptionResponse
 export type EmptyResponse = void
 
 export class CreateInscriptionRequest {}
+
+export interface AdminAccount {
+  id: number
+  email: string
+}
