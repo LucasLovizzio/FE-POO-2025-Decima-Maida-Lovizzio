@@ -6,7 +6,6 @@ import TournamentCard from '../components/TournamentCard'
 import CreateTournamentModal from '../components/CreateTournamentModal'
 
 function AdminPage() {
-
   const navigate = useNavigate()
 
   const [tournaments, setTournaments] = useState<TournamentResponse[]>([])
@@ -31,14 +30,10 @@ function AdminPage() {
       })
 
       setTournaments(sortedTournaments)
-
     } catch (err) {
-
-      const errorMessage =
-        err instanceof Error ? err.message : 'Error al cargar los torneos'
+      const errorMessage = err instanceof Error ? err.message : 'Error al cargar los torneos'
 
       setError(errorMessage)
-
     } finally {
       setIsLoading(false)
     }
@@ -46,45 +41,33 @@ function AdminPage() {
 
   const handleCreateTournament = async (data: CreateTournamentRequest) => {
     try {
-
       setError(null)
 
       const response = await adminService.createTournament(data)
 
       setTournaments((prev) => [response.data, ...prev])
-
     } catch (err) {
-
-      const errorMessage =
-        err instanceof Error ? err.message : 'Error al crear el torneo'
+      const errorMessage = err instanceof Error ? err.message : 'Error al crear el torneo'
 
       setError(errorMessage)
       throw err
-
     }
   }
 
   const handlePublishTournament = async (id: number) => {
     try {
-
       setPublishingId(id)
       setError(null)
 
       const response = await adminService.publishTournament(id)
 
       setTournaments((prev) =>
-        prev.map((tournament) =>
-          tournament.id === id ? response.data : tournament
-        )
+        prev.map((tournament) => (tournament.id === id ? response.data : tournament))
       )
-
     } catch (err) {
-
-      const errorMessage =
-        err instanceof Error ? err.message : 'Error al publicar el torneo'
+      const errorMessage = err instanceof Error ? err.message : 'Error al publicar el torneo'
 
       setError(errorMessage)
-
     } finally {
       setPublishingId(null)
     }
@@ -93,12 +76,9 @@ function AdminPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
-
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">
-              Panel de Administración
-            </h1>
+            <h1 className="text-4xl font-bold text-white">Panel de Administración</h1>
             <p className="mt-2 text-blue-100">Gestión de Torneos</p>
           </div>
 
@@ -110,11 +90,7 @@ function AdminPage() {
           </button>
         </div>
 
-        {error && (
-          <p className="mb-4 text-red-200 bg-red-600 p-2 rounded">
-            {error}
-          </p>
-        )}
+        {error && <p className="mb-4 rounded bg-red-600 p-2 text-red-200">{error}</p>}
 
         {isLoading ? (
           <p className="text-white">Cargando torneos...</p>
@@ -132,9 +108,7 @@ function AdminPage() {
 
                 <button
                   className="mt-2 w-full rounded bg-blue-500 py-2 text-white"
-                  onClick={() =>
-                    navigate(`/admin/tournaments/${tournament.id}`)
-                  }
+                  onClick={() => navigate(`/admin/tournaments/${tournament.id}`)}
                 >
                   Ver competencias
                 </button>

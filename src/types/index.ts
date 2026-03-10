@@ -72,5 +72,4 @@ export type ErrorResponse = ExceptionResponse
  */
 export type EmptyResponse = void
 
-export class CreateInscriptionRequest {
-}
+export class CreateInscriptionRequest {}
