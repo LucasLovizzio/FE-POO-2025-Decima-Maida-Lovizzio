@@ -131,6 +131,18 @@ function ParticipantPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
+
+        {/* BOTÓN VOLVER */}
+        <div className="mb-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="text-sm text-white hover:underline"
+          >
+            ← Volver
+          </button>
+        </div>
+
+
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-white">Torneos Disponibles</h1>

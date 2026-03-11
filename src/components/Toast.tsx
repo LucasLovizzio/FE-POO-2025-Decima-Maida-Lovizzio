@@ -11,10 +11,10 @@ export interface ToastProps {
 }
 
 const variantStyles: Record<ToastVariant, string> = {
-  success: 'bg-green-500 text-white',
-  error: 'bg-red-500 text-white',
-  warning: 'bg-yellow-500 text-gray-900',
-  info: 'bg-blue-500 text-white',
+  success: 'bg-indigo-600 text-white',
+  error: 'bg-purple-700 text-white',
+  warning: 'bg-indigo-400 text-white',
+  info: 'bg-purple-500 text-white',
 }
 
 const variantIcons: Record<ToastVariant, string> = {

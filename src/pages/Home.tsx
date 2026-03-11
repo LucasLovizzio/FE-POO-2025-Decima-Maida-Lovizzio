@@ -13,8 +13,7 @@ function Home() {
           </h2>
 
           <p className="text-xl mb-8 max-w-xl">
-            ¡Todo listo para organizar tu torneo!
-            Nuestro objetivo principal es ayudar a los organizadores a gestionar sus torneos
+            ¡Todo listo para organizar tu torneo! Nuestro objetivo principal es ayudar a los organizadores a gestionar sus torneos
           </p>
 
           <Link
