@@ -11,6 +11,7 @@ function RegisterPage() {
 
   const [formData, setFormData] = useState({
     name: '',
+    lastName: '',
     email: '',
     password: '',
     docType: DocType.DNI,
@@ -26,6 +27,7 @@ function RegisterPage() {
   const validateForm = () => {
     if (
       !formData.name.trim() ||
+      !formData.lastName.trim()||
       !formData.email.trim() ||
       !formData.password.trim() ||
       !formData.docNumber.trim()
@@ -52,7 +54,7 @@ function RegisterPage() {
       await authService.registerParticipant(formData)
       toast.success('¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.')
       // redirige al login despues de registro exitoso
-      navigate('/login')
+      setTimeout(() => navigate('/login'), 1500)
     } catch (err: unknown) {
       const errorMessage = getErrorMessage(err)
       toast.error(errorMessage)
@@ -75,6 +77,16 @@ function RegisterPage() {
               type="text"
               name="name"
               value={formData.name}
+              onChange={handleChange}
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Apellido</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
               onChange={handleChange}
               className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
             />

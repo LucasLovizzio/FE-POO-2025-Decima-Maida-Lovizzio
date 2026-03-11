@@ -100,7 +100,7 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
       })
       setErrors({})
       onClose()
-    } catch (error) {
+    } catch {
       // El error se maneja en el componente padre con toasts
     } finally {
       setIsSubmitting(false)
@@ -122,102 +122,92 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="Crear Nuevo Torneo">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Nombre */}
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            Nombre del Torneo *
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={`mt-1 block w-full rounded-md border ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
-            placeholder="Ej: Campeonato Nacional 2026"
-          />
-          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-        </div>
+      <div className="bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-6 rounded-lg">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Nombre */}
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium">
+              Nombre del Torneo *
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+              placeholder="Ej: Campeonato Nacional 2026"
+            />
+          </div>
 
-        {/* Descripción */}
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Descripción *
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows={3}
-            className={`mt-1 block w-full rounded-md border ${
-              errors.description ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
-            placeholder="Describe el torneo..."
-          />
-          {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description}</p>}
-        </div>
+          {/* Descripción */}
+          <div>
+            <label htmlFor="description" className="block text-sm font-medium">
+              Descripción *
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={3}
+              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+              placeholder="Describe el torneo..."
+            />
+          </div>
 
-        {/* Fecha de Inicio */}
-        <div>
-          <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
-            Fecha de Inicio *
-          </label>
-          <input
-            type="datetime-local"
-            id="startDate"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            className={`mt-1 block w-full rounded-md border ${
-              errors.startDate ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
-          />
-          {errors.startDate && <p className="mt-1 text-sm text-red-600">{errors.startDate}</p>}
-        </div>
+          {/* Fecha de Inicio */}
+          <div>
+            <label htmlFor="startDate" className="block text-sm font-medium">
+              Fecha de Inicio *
+            </label>
+            <input
+              type="datetime-local"
+              id="startDate"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+            />
+          </div>
 
-        {/* Fecha de Fin */}
-        <div>
-          <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
-            Fecha de Fin *
-          </label>
-          <input
-            type="datetime-local"
-            id="endDate"
-            name="endDate"
-            value={formData.endDate}
-            onChange={handleChange}
-            className={`mt-1 block w-full rounded-md border ${
-              errors.endDate ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
-          />
-          {errors.endDate && <p className="mt-1 text-sm text-red-600">{errors.endDate}</p>}
-        </div>
+          {/* Fecha de Fin */}
+          <div>
+            <label htmlFor="endDate" className="block text-sm font-medium">
+              Fecha de Fin *
+            </label>
+            <input
+              type="datetime-local"
+              id="endDate"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+            />
+          </div>
 
-        {/* Botones */}
-        <div className="flex justify-end space-x-3 pt-4">
-          <button
-            type="button"
-            onClick={handleClose}
-            disabled={isSubmitting}
-            className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
-          >
-            {isSubmitting ? 'Creando...' : 'Crear Torneo'}
-          </button>
-        </div>
-      </form>
+          {/* Botones */}
+          <div className="flex justify-end space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={handleClose}
+              disabled={isSubmitting}
+              className="rounded-md border border-white/50 bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="rounded-md bg-white text-indigo-700 px-4 py-2 text-sm font-medium hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-400"
+            >
+              {isSubmitting ? 'Creando...' : 'Crear Torneo'}
+            </button>
+          </div>
+        </form>
+      </div>
     </Modal>
-  )
+  );
 }
 
 export default CreateTournamentModal
