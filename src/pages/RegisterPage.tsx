@@ -62,9 +62,9 @@ function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 p-4">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+        <h2 className="mb-6 text-center text-3xl font-bold text-gray-800">
           Registro de Participante
         </h2>
 
@@ -76,7 +76,7 @@ function RegisterPage() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
 
@@ -87,7 +87,7 @@ function RegisterPage() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
 
@@ -98,7 +98,7 @@ function RegisterPage() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
 
@@ -108,7 +108,7 @@ function RegisterPage() {
               name="docType"
               value={formData.docType}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
             >
               <option value={DocType.DNI}>DNI</option>
               <option value={DocType.PASSPORT}>Pasaporte</option>
@@ -123,14 +123,14 @@ function RegisterPage() {
               name="docNumber"
               value={formData.docNumber}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-md bg-green-600 py-2 text-white transition-colors hover:bg-green-700 disabled:bg-green-400"
+            className="w-full rounded-md bg-indigo-600 py-2 text-white transition-colors hover:bg-indigo-700 disabled:bg-indigo-400"
           >
             {isLoading ? 'Creando cuenta...' : 'Registrarse'}
           </button>
@@ -138,7 +138,7 @@ function RegisterPage() {
 
         <div className="mt-6 text-center text-sm">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="font-medium text-blue-600 hover:underline">
+          <Link to="/login" className="font-medium text-indigo-600 hover:underline">
             Inicia sesión aquí
           </Link>
         </div>

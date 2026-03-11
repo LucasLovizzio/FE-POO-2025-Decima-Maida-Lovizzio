@@ -26,14 +26,19 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
   return (
     <div
       onClick={handleCardClick}
-      className="cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
+      className="cursor-pointer rounded-xl border border-gray-200 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-gray-800 transition-colors hover:text-blue-600">{tournament.name}</h3>
-          {/* Agregué un line-clamp-2 para que las descripciones muy largas no rompan el diseño */}
-          <p className="mt-2 text-sm text-gray-600 line-clamp-2">{tournament.description}</p>
+          <h3 className="text-xl font-bold text-gray-800 transition-colors duration-200 hover:text-indigo-600">
+            {tournament.name}
+          </h3>
+
+          <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+            {tournament.description}
+          </p>
         </div>
+
         <span
           className={`ml-4 whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold ${
             tournament.published
@@ -41,61 +46,45 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
               : 'bg-yellow-100 text-yellow-800'
           }`}
         >
-          {tournament.published ? 'Publicado' : 'No publicado'}
-        </span>
+        {tournament.published ? 'Publicado' : 'No publicado'}
+      </span>
       </div>
 
       <div className="mb-4 space-y-2 text-sm text-gray-600">
         <div className="flex items-center">
-          <svg
-            className="mr-2 h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
           <span>
-            <strong>Inicio:</strong> {formatDate(tournament.startDate)}
-          </span>
+          <strong>Inicio:</strong> {formatDate(tournament.startDate)}
+        </span>
         </div>
+
         <div className="flex items-center">
-          <svg
-            className="mr-2 h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
           <span>
-            <strong>Fin:</strong> {formatDate(tournament.endDate)}
-          </span>
+          <strong>Fin:</strong> {formatDate(tournament.endDate)}
+        </span>
         </div>
       </div>
 
-      {/* Condicionamos que onPublish exista para mostrar el botón (solo lo verá el Admin) */}
       {!tournament.published && onPublish && (
         <button
           onClick={(e) => {
-            e.stopPropagation(); // Evita que el clic en el botón active el onClick de la tarjeta
-            onPublish(tournament.id);
+            e.stopPropagation()
+            onPublish(tournament.id)
           }}
           disabled={isPublishing}
-          className={`mt-4 w-full rounded-md px-4 py-2 font-medium text-white transition-colors ${
+          className={`mt-4 w-full rounded-md px-4 py-2 font-medium text-white transition-colors duration-200 ${
             isPublishing
               ? 'cursor-not-allowed bg-gray-400'
-              : 'bg-blue-600 hover:bg-blue-700'
+              : 'bg-indigo-600 hover:bg-indigo-700'
           }`}
         >
           {isPublishing ? 'Publicando...' : 'Publicar Torneo'}
@@ -103,6 +92,7 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
       )}
     </div>
   )
+
 }
 
 export default TournamentCard

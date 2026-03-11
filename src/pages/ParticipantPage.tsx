@@ -120,25 +120,28 @@ function ParticipantPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
         <div className="mx-auto max-w-7xl">
-          <p className="text-center text-white">Cargando torneos...</p>
+          <p className="text-center text-white text-lg">Cargando torneos...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-white">Torneos Disponibles</h1>
-            <p className="mt-2 text-blue-100">Inscríbete en las competencias que te interesen</p>
+            <p className="mt-2 text-indigo-100">
+              Inscríbete en las competencias que te interesen
+            </p>
           </div>
+
           <button
             onClick={() => navigate('/participant/inscripciones')}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg hover:bg-blue-50"
+            className="rounded-md bg-white px-6 py-3 font-semibold text-indigo-600 shadow-lg hover:bg-indigo-50"
           >
             Mis Inscripciones
           </button>
@@ -218,7 +221,7 @@ function ParticipantPage() {
                             ) : (
                               <button
                                 onClick={() => handleInscribeClick(competition, tournament)}
-                                className="w-full rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+                                className="w-full rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
                               >
                                 Inscribirse
                               </button>
