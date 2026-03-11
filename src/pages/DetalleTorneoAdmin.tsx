@@ -110,7 +110,7 @@ function DetalleTorneoAdmin() {
   const handleUpdateCompetition = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!editingCompetition) return
+    if (!editingCompetition || !id) return
 
     const priceNum = Number(editPrice)
     const capacityNum = Number(editCapacity)
@@ -132,7 +132,7 @@ function DetalleTorneoAdmin() {
 
     try {
       setIsUpdating(true)
-      const res = await competitionService.update(editingCompetition.id, {
+      const res = await competitionService.update(Number(id), {
         name: editName,
         basePrice: priceNum,
         capacity: capacityNum,
@@ -153,11 +153,13 @@ function DetalleTorneoAdmin() {
   }
 
   const handleDeleteCompetition = async (competitionId: number) => {
+    if (!id) return
+
     const confirmDelete = window.confirm('¿Seguro que querés eliminar esta competencia?')
     if (!confirmDelete) return
 
     try {
-      await competitionService.delete(competitionId)
+      await competitionService.delete(Number(id), competitionId)
       setCompetitions((prev) => prev.filter((comp) => comp.id !== competitionId))
       toast.success('Competencia eliminada exitosamente')
     } catch (error) {
