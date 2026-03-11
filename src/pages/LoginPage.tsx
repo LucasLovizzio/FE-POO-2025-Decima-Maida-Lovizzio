@@ -1,63 +1,68 @@
-import { useAuth } from "../context/useAuth";
-import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/useAuth'
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { authService } from '../services/authService.ts'
+import { useToast } from '../hooks/useToast'
+import { getErrorMessage } from '../utils/errorHandler'
 
-type Role = 'PARTICIPANT' | 'ADMIN';
+type Role = 'PARTICIPANT' | 'ADMIN'
 
 function LoginPage() {
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const navigate = useNavigate()
+  const { login } = useAuth()
+  const toast = useToast()
 
-  const [role, setRole] = useState<Role>('PARTICIPANT');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [role, setRole] = useState<Role>('PARTICIPANT')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const validateForm = () => {
     if (!email.trim() || !password.trim()) {
-      setError('Completar campos obligatorios.')
-      return false;
+      toast.error('Completar campos obligatorios.')
+      return false
     }
 
     if (!/^\S+@\S+\.\S+$/.test(email)) {
-      setError('Formato inválido.')
-      return false;
+      toast.error('Formato inválido.')
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
 
-    if (!validateForm()) return;
+    if (!validateForm()) return
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      const credentials = { email, password };
-      const data = role === 'PARTICIPANT'
-        ? await authService.loginParticipant(credentials)
-        : await authService.loginAdmin(credentials);
+      const credentials = { email, password }
+      const response =
+        role === 'PARTICIPANT'
+          ? await authService.loginParticipant(credentials)
+          : await authService.loginAdmin(credentials)
 
-      // Se guarda el token y el rol en el context
-      login(data.token, role);
+      // Se guarda el token en el context (el rol se extrae del JWT)
+      login(response.data.token)
+
+      toast.success('¡Inicio de sesión exitoso!')
 
       // Redireccionamos segun el rol
       if (role === 'PARTICIPANT') {
-        navigate('/participant');
+        navigate('/participant')
       } else {
-        navigate('/admin');
+        navigate('/admin')
       }
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Error al iniciar sesión. Verificar que los datos ingresados sean correctos.')
+    } catch (err: unknown) {
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -100,13 +105,6 @@ function LoginPage() {
           </button>
         </div>
 
-        {/* Error Message */}
-        {error && (
-          <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
-
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
@@ -114,7 +112,7 @@ function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               placeholder="tu@email.com"
             />
           </div>
@@ -126,13 +124,13 @@ function LoginPage() {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-md border border-gray-300 p-2 pr-10 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-md border border-gray-300 p-2 pr-10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 placeholder="••••••••"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                className="absolute top-1/2 right-2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
               >
                 {showPassword ? 'Ocultar' : 'Mostrar'}
               </button>
@@ -159,7 +157,7 @@ function LoginPage() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

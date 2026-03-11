@@ -20,5 +20,5 @@ export const adminService = {
     api.get<AdminResponse[]>("/admin/accounts"),
 
   getInscriptions: (tournamentId: number, competitionId: number) =>
-    api.get<InscriptionResponse[]>(`/admin/tournaments/${tournamentId}/competition/${competitionId}/inscripciones`)
+    api.get<InscriptionResponse[]>(`/admin/tournaments/${tournamentId}/competitions/${competitionId}/inscripciones`)
 }

@@ -4,14 +4,15 @@ import { adminService } from '../services/adminService'
 import type { TournamentResponse, CreateTournamentRequest } from '../types'
 import TournamentCard from '../components/TournamentCard'
 import CreateTournamentModal from '../components/CreateTournamentModal'
+import { useToast } from '../hooks/useToast'
+import { getErrorMessage } from '../utils/errorHandler'
 
 function AdminPage() {
-
   const navigate = useNavigate()
+  const toast = useToast()
 
   const [tournaments, setTournaments] = useState<TournamentResponse[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [publishingId, setPublishingId] = useState<number | null>(null)
 
@@ -22,7 +23,6 @@ function AdminPage() {
   const loadTournaments = async () => {
     try {
       setIsLoading(true)
-      setError(null)
 
       const response = await adminService.getTournaments()
 
@@ -31,14 +31,9 @@ function AdminPage() {
       })
 
       setTournaments(sortedTournaments)
-
     } catch (err) {
-
-      const errorMessage =
-        err instanceof Error ? err.message : 'Error al cargar los torneos'
-
-      setError(errorMessage)
-
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -46,45 +41,30 @@ function AdminPage() {
 
   const handleCreateTournament = async (data: CreateTournamentRequest) => {
     try {
-
-      setError(null)
-
       const response = await adminService.createTournament(data)
-
       setTournaments((prev) => [response.data, ...prev])
-
+      toast.success('Torneo creado exitosamente')
     } catch (err) {
-
-      const errorMessage =
-        err instanceof Error ? err.message : 'Error al crear el torneo'
-
-      setError(errorMessage)
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
       throw err
-
     }
   }
 
   const handlePublishTournament = async (id: number) => {
     try {
-
       setPublishingId(id)
-      setError(null)
 
       const response = await adminService.publishTournament(id)
 
       setTournaments((prev) =>
-        prev.map((tournament) =>
-          tournament.id === id ? response.data : tournament
-        )
+        prev.map((tournament) => (tournament.id === id ? response.data : tournament))
       )
 
+      toast.success('Torneo publicado exitosamente')
     } catch (err) {
-
-      const errorMessage =
-        err instanceof Error ? err.message : 'Error al publicar el torneo'
-
-      setError(errorMessage)
-
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
     } finally {
       setPublishingId(null)
     }
@@ -93,12 +73,9 @@ function AdminPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
-
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">
-              Panel de Administración
-            </h1>
+            <h1 className="text-4xl font-bold text-white">Panel de Administración</h1>
             <p className="mt-2 text-blue-100">Gestión de Torneos</p>
           </div>
 
@@ -109,12 +86,6 @@ function AdminPage() {
             + Crear Torneo
           </button>
         </div>
-
-        {error && (
-          <p className="mb-4 text-red-200 bg-red-600 p-2 rounded">
-            {error}
-          </p>
-        )}
 
         {isLoading ? (
           <p className="text-white">Cargando torneos...</p>
@@ -132,9 +103,7 @@ function AdminPage() {
 
                 <button
                   className="mt-2 w-full rounded bg-blue-500 py-2 text-white"
-                  onClick={() =>
-                    navigate(`/admin/tournaments/${tournament.id}`)
-                  }
+                  onClick={() => navigate(`/admin/tournaments/${tournament.id}`)}
                 >
                   Ver competencias
                 </button>

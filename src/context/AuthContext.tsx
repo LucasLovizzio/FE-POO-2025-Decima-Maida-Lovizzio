@@ -41,8 +41,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
 
       return payload;
-    } catch (error) {
-      console.error("Error al decodificar el token:", error);
+    } catch {
+      // Token inválido o corrupto, limpiar silenciosamente
       return null;
     }
   }, [token]);
