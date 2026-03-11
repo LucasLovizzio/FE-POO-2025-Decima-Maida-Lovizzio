@@ -43,7 +43,7 @@ function DetalleTorneoAdmin() {
       })
 
       // actualizar lista sin recargar
-      setCompetitions([...competitions, res.data])
+      setCompetitions((prevCompetitions) => [...prevCompetitions, res.data])
 
       // limpiar formulario
       setName("")
@@ -115,7 +115,6 @@ function DetalleTorneoAdmin() {
       console.error(error)
     }
   }
-
 
   return (
     <div>
