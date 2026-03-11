@@ -284,4 +284,4 @@ function ParticipantPage() {
   )
 }
 
-export default ParticipantPage
+export default ParticipantPage;
