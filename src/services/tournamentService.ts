@@ -1,7 +1,8 @@
-import api from "./api"
+import api from './api'
 import type { TournamentResponse } from '../types'
 
 export const tournamentService = {
-  getById: (id: number) =>
-    api.get<TournamentResponse>(`/tournaments/${id}`),
+  getAll: () => api.get<TournamentResponse[]>('/tournaments'),
+
+  getById: (id: number) => api.get<TournamentResponse>(`/tournaments/${id}`),
 }

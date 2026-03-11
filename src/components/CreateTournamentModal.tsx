@@ -18,9 +18,7 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
     // Limpiar error del campo cuando el usuario empiece a escribir
@@ -64,7 +62,7 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
     if (formData.startDate && formData.endDate) {
       const start = new Date(formData.startDate)
       const end = new Date(formData.endDate)
-      
+
       if (end <= start) {
         newErrors.endDate = 'La fecha de fin debe ser posterior a la fecha de inicio'
       }
@@ -92,7 +90,7 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
       }
 
       await onSubmit(dataToSubmit)
-      
+
       // Resetear formulario
       setFormData({
         name: '',
@@ -128,10 +126,7 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Nombre */}
         <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Nombre del Torneo *
           </label>
           <input
@@ -142,20 +137,15 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
             onChange={handleChange}
             className={`mt-1 block w-full rounded-md border ${
               errors.name ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500`}
+            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
             placeholder="Ej: Campeonato Nacional 2026"
           />
-          {errors.name && (
-            <p className="mt-1 text-sm text-red-600">{errors.name}</p>
-          )}
+          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
         </div>
 
         {/* Descripción */}
         <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
             Descripción *
           </label>
           <textarea
@@ -166,20 +156,15 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
             rows={3}
             className={`mt-1 block w-full rounded-md border ${
               errors.description ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500`}
+            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
             placeholder="Describe el torneo..."
           />
-          {errors.description && (
-            <p className="mt-1 text-sm text-red-600">{errors.description}</p>
-          )}
+          {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description}</p>}
         </div>
 
         {/* Fecha de Inicio */}
         <div>
-          <label
-            htmlFor="startDate"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
             Fecha de Inicio *
           </label>
           <input
@@ -190,19 +175,14 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
             onChange={handleChange}
             className={`mt-1 block w-full rounded-md border ${
               errors.startDate ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500`}
+            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
           />
-          {errors.startDate && (
-            <p className="mt-1 text-sm text-red-600">{errors.startDate}</p>
-          )}
+          {errors.startDate && <p className="mt-1 text-sm text-red-600">{errors.startDate}</p>}
         </div>
 
         {/* Fecha de Fin */}
         <div>
-          <label
-            htmlFor="endDate"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
             Fecha de Fin *
           </label>
           <input
@@ -213,11 +193,9 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
             onChange={handleChange}
             className={`mt-1 block w-full rounded-md border ${
               errors.endDate ? 'border-red-500' : 'border-gray-300'
-            } px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500`}
+            } px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none`}
           />
-          {errors.endDate && (
-            <p className="mt-1 text-sm text-red-600">{errors.endDate}</p>
-          )}
+          {errors.endDate && <p className="mt-1 text-sm text-red-600">{errors.endDate}</p>}
         </div>
 
         {/* Botones */}

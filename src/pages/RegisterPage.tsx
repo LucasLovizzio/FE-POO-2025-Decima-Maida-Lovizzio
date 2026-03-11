@@ -1,65 +1,64 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { authService } from '../services/authService.ts'
 
 function RegisterPage() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-  });
+  })
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLImageElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const validateForm = () => {
     if (!formData.name.trim() || !formData.email.trim() || !formData.password.trim()) {
-      setError('Todos los campos son obligatorios.');
-      return false;
+      setError('Todos los campos son obligatorios.')
+      return false
     }
 
     if (formData.password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres.');
-      return false;
+      setError('La contraseña debe tener al menos 6 caracteres.')
+      return false
     }
 
-    return false;
-  };
+    return false
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
-    if (!validateForm()) return;
+    if (!validateForm()) return
 
-    setIsLoading(true);
+    setIsLoading(true)
     try {
-      await authService.registerParticipant(formData);
+      await authService.registerParticipant(formData)
       // redirige al login despues de registro exitoso
-      navigate('/login');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Error al registrar la cuenta.');
+      navigate('/login')
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } }
+      setError(error.response?.data?.message || 'Error al registrar la cuenta.')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">Registro de Participante</h2>
+        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+          Registro de Participante
+        </h2>
 
-        {error && (
-          <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
+        {error && <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -69,7 +68,7 @@ function RegisterPage() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
@@ -80,7 +79,7 @@ function RegisterPage() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
@@ -91,7 +90,7 @@ function RegisterPage() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
@@ -112,8 +111,7 @@ function RegisterPage() {
         </div>
       </div>
     </div>
-  );
-
+  )
 }
 
-export default RegisterPage;
+export default RegisterPage

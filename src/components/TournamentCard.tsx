@@ -25,9 +25,7 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
         </div>
         <span
           className={`ml-4 rounded-full px-3 py-1 text-xs font-semibold ${
-            tournament.published
-              ? 'bg-green-100 text-green-800'
-              : 'bg-yellow-100 text-yellow-800'
+            tournament.published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
           }`}
         >
           {tournament.published ? 'Publicado' : 'No publicado'}
@@ -36,12 +34,7 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
 
       <div className="mb-4 space-y-2 text-sm text-gray-600">
         <div className="flex items-center">
-          <svg
-            className="mr-2 h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -54,12 +47,7 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
           </span>
         </div>
         <div className="flex items-center">
-          <svg
-            className="mr-2 h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -78,9 +66,7 @@ function TournamentCard({ tournament, onPublish, isPublishing }: TournamentCardP
           onClick={() => onPublish(tournament.id)}
           disabled={isPublishing}
           className={`w-full rounded-md px-4 py-2 font-medium text-white transition-colors ${
-            isPublishing
-              ? 'cursor-not-allowed bg-gray-400'
-              : 'bg-blue-600 hover:bg-blue-700'
+            isPublishing ? 'cursor-not-allowed bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
           }`}
         >
           {isPublishing ? 'Publicando...' : 'Publicar Torneo'}
