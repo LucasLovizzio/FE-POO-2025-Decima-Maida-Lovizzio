@@ -6,11 +6,12 @@ import { AuthProvider } from "./context/AuthContext";
 import { AdminRoute } from "./context/AdminRoute";
 import { ParticipantRoute } from "./context/ParticipantRoute";
 
-import App from "./App";
-import Home from "./pages/Home";
-import AdminPage from "./pages/AdminPage";
-import ParticipantPage from "./pages/ParticipantPage";
-import LoginPage from "./pages/LoginPage";
+import App from './App'
+import Home from './pages/Home'
+import AdminPage from './pages/AdminPage'
+import ParticipantPage from './pages/ParticipantPage'
+import MisInscripciones from './pages/MisInscripciones'
+import LoginPage from './pages/LoginPage'
 
 import RegisterPage from './pages/RegisterPage.tsx'
 import DetalleTorneoAdmin from "./pages/DetalleTorneoAdmin"
@@ -29,11 +30,9 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
           </Route>
-
           {/* Login público */}
           <Route path="login" element={<LoginPage />} />
-          <Routes path="register" element={<RegisterPage />} />
-
+          <Route path="register" element={<RegisterPage />} />
           {/* Ruta solo ADMIN */}
           <Route
             path="admin"
@@ -43,7 +42,6 @@ createRoot(document.getElementById("root")!).render(
               </AdminRoute>
             }
           />
-
           {/* Ruta solo PARTICIPANT */}
           <Route
             path="participant"
@@ -53,7 +51,14 @@ createRoot(document.getElementById("root")!).render(
               </ParticipantRoute>
             }
           />
-
+          <Route
+            path="participant/inscripciones"
+            element={
+              <ParticipantRoute>
+                <MisInscripciones />
+              </ParticipantRoute>
+            }
+          />
           <Route
             path="/admin/tournaments/:id"
             element={
@@ -62,7 +67,6 @@ createRoot(document.getElementById("root")!).render(
               </AdminRoute>
             }
           />
-
           //solo puede entrar un admin logueado
           <Route
             path="/admin/accounts"
@@ -72,7 +76,6 @@ createRoot(document.getElementById("root")!).render(
               </AdminRoute>
             }
           />
-
         </Routes>
       </AuthProvider>
     </BrowserRouter>
