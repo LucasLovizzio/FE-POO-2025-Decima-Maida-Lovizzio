@@ -14,9 +14,10 @@ export interface User {
 
 /**
  * Entidad Administrador - extiende de User
- * No tiene campos adicionales más allá de los heredados
  */
-export type Admin = User
+export interface Admin extends User {
+  // No tiene campos adicionales más allá de los heredados
+}
 
 /**
  * Entidad Participante - extiende de User

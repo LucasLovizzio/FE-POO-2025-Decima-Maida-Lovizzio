@@ -1,4 +1,4 @@
-import api from './api'
+import api from "./api"
 
 import type {
   LoginRequest,
@@ -6,13 +6,15 @@ import type {
   CreateParticipantRequest,
   CreateParticipantResponse,
   AdminLoginRequest,
-} from '../types'
+} from "../types"
 
 export const authService = {
-  loginParticipant: (data: LoginRequest) => api.post<AuthResponse>('/auth', data),
+  loginParticipant: (data: LoginRequest) =>
+    api.post<AuthResponse>("/auth", data),
 
-  loginAdmin: (data: AdminLoginRequest) => api.post<AuthResponse>('/admin/auth', data),
+  loginAdmin: (data: AdminLoginRequest) =>
+    api.post<AuthResponse>("/admin/auth", data),
 
   registerParticipant: (data: CreateParticipantRequest) =>
-    api.post<CreateParticipantResponse>('/account', data),
+    api.post<CreateParticipantResponse>("/account", data),
 }
