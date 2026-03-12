@@ -173,7 +173,7 @@ function DetalleTorneoAdmin() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
         <div className="mx-auto max-w-7xl">
           <p className="text-center text-white">Cargando competencias...</p>
         </div>
@@ -182,23 +182,17 @@ function DetalleTorneoAdmin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
-
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-indigo-600">
-              Gestión de Competencias
-            </h1>
-            <p className="mt-2 text-gray-600">
-              Administra las competencias del torneo
-            </p>
+            <h1 className="text-4xl font-bold text-white">Gestión de Competencias</h1>
+            <p className="mt-2 text-blue-100">Administra las competencias del torneo</p>
           </div>
-
           <button
             onClick={() => navigate('/admin')}
-            className="rounded-md bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg hover:bg-indigo-700"
+            className="rounded-md bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg hover:bg-blue-50"
           >
             ← Volver a Torneos
           </button>
@@ -206,130 +200,93 @@ function DetalleTorneoAdmin() {
 
         {/* Formulario Crear Competencia */}
         <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
-          <h2 className="mb-4 text-2xl font-bold text-indigo-600">
-            Crear Nueva Competencia
-          </h2>
-
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Crear Nueva Competencia</h2>
           <form onSubmit={handleCreateCompetition} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-3">
-
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Nombre *
-                </label>
-
+                <label className="block text-sm font-medium text-gray-700">Nombre *</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                   placeholder="Ej: Categoría Amateur"
                   required
                 />
               </div>
-
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Precio Base *
-                </label>
-
+                <label className="block text-sm font-medium text-gray-700">Precio Base *</label>
                 <input
                   type="number"
                   step="0.01"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                   placeholder="100.00"
                   required
                 />
               </div>
-
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Capacidad *
-                </label>
-
+                <label className="block text-sm font-medium text-gray-700">Capacidad *</label>
                 <input
                   type="number"
                   value={capacity}
                   onChange={(e) => setCapacity(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                   placeholder="50"
                   required
                 />
               </div>
-
             </div>
-
             <button
               type="submit"
               disabled={isCreating}
-              className="rounded-md bg-indigo-600 px-6 py-2 text-white hover:bg-indigo-700 disabled:bg-indigo-400"
+              className="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 disabled:bg-blue-400"
             >
               {isCreating ? 'Creando...' : 'Crear Competencia'}
             </button>
           </form>
         </div>
 
-        {/* Formulario Editar */}
+        {/* Formulario Editar (si está activo) */}
         {editingCompetition && (
           <div className="mb-8 rounded-lg bg-yellow-50 p-6 shadow-lg">
-
-            <h2 className="mb-4 text-2xl font-bold text-indigo-600">
-              Editar Competencia
-            </h2>
-
+            <h2 className="mb-4 text-2xl font-bold text-gray-800">Editar Competencia</h2>
             <form onSubmit={handleUpdateCompetition} className="space-y-4">
-
               <div className="grid gap-4 md:grid-cols-3">
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Nombre *
-                  </label>
-
+                  <label className="block text-sm font-medium text-gray-700">Nombre *</label>
                   <input
                     type="text"
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Precio Base *
-                  </label>
-
+                  <label className="block text-sm font-medium text-gray-700">Precio Base *</label>
                   <input
                     type="number"
                     step="0.01"
                     value={editPrice}
                     onChange={(e) => setEditPrice(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Capacidad *
-                  </label>
-
+                  <label className="block text-sm font-medium text-gray-700">Capacidad *</label>
                   <input
                     type="number"
                     value={editCapacity}
                     onChange={(e) => setEditCapacity(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                     required
                   />
                 </div>
-
               </div>
-
               <div className="flex gap-3">
-
                 <button
                   type="submit"
                   disabled={isUpdating}
@@ -337,7 +294,6 @@ function DetalleTorneoAdmin() {
                 >
                   {isUpdating ? 'Guardando...' : 'Guardar Cambios'}
                 </button>
-
                 <button
                   type="button"
                   onClick={() => setEditingCompetition(null)}
@@ -345,98 +301,69 @@ function DetalleTorneoAdmin() {
                 >
                   Cancelar
                 </button>
-
               </div>
-
             </form>
           </div>
         )}
 
         {/* Lista de Competencias */}
         <div className="rounded-lg bg-white p-6 shadow-lg">
-
-          <h2 className="mb-4 text-2xl font-bold text-indigo-600">
-            Competencias Existentes
-          </h2>
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Competencias Existentes</h2>
 
           {competitions.length === 0 ? (
             <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center">
-              <p className="text-lg font-medium text-gray-700">
-                No hay competencias creadas
-              </p>
+              <p className="text-lg font-medium text-gray-700">No hay competencias creadas</p>
               <p className="mt-2 text-gray-500">
                 Crea la primera competencia usando el formulario de arriba.
               </p>
             </div>
           ) : (
-
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-
               {competitions.map((comp) => (
                 <div
                   key={comp.id}
                   className="rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm transition-shadow hover:shadow-md"
                 >
-
-                  <h3 className="mb-2 text-lg font-semibold text-gray-800">
-                    {comp.name}
-                  </h3>
-
+                  <h3 className="mb-2 text-lg font-semibold text-gray-800">{comp.name}</h3>
                   <div className="mb-3 space-y-1 text-sm text-gray-600">
-
                     <div className="flex justify-between">
                       <span>Precio:</span>
-                      <span className="font-medium">
-                      ${comp.basePrice.toFixed(2)}
-                    </span>
+                      <span className="font-medium">${comp.basePrice.toFixed(2)}</span>
                     </div>
-
                     <div className="flex justify-between">
                       <span>Capacidad:</span>
-                      <span className="font-medium">
-                      {comp.capacity} participantes
-                    </span>
+                      <span className="font-medium">{comp.capacity} participantes</span>
                     </div>
-
                   </div>
-
                   <div className="flex flex-col gap-2">
-
                     <button
                       onClick={() => handleViewInscriptions(comp)}
-                      className="w-full rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                      className="w-full rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
                     >
                       Ver Inscripciones
                     </button>
-
                     <div className="flex gap-2">
-
                       <button
                         onClick={() => handleEditClick(comp)}
                         className="flex-1 rounded bg-yellow-500 px-3 py-2 text-sm font-semibold text-white hover:bg-yellow-600"
                       >
                         Editar
                       </button>
-
                       <button
                         onClick={() => handleDeleteCompetition(comp.id)}
                         className="flex-1 rounded bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-red-600"
                       >
                         Eliminar
                       </button>
-
                     </div>
                   </div>
-
                 </div>
               ))}
-
             </div>
           )}
-
         </div>
 
-        {/* Modal */}
+        {/* Modal de Inscripciones */}
         {selectedCompetitionForInscriptions && (
           <InscriptionModal
             isOpen={isInscriptionsModalOpen}
@@ -449,11 +376,9 @@ function DetalleTorneoAdmin() {
             competitionName={selectedCompetitionForInscriptions.name}
           />
         )}
-
       </div>
     </div>
   )
-
 }
 
 export default DetalleTorneoAdmin
