@@ -26,7 +26,15 @@ function AdminPage() {
 
       const response = await adminService.getTournaments()
 
-      const sortedTournaments = [...response.data].sort((a, b) => {
+      // Mapeamos la respuesta para forzar que el campo 'published' sea un booleano real
+      // antes de guardarlo en el estado y ordenarlo.
+      const fixedTournaments = response.data.map(tournament => ({
+        ...tournament,
+        // Si viene el string "true" (o el booleano true), esto da true. Si no, false.
+        published: tournament.published === true || tournament.published === 'true'
+      }))
+
+      const sortedTournaments = fixedTournaments.sort((a, b) => {
         return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
       })
 
