@@ -135,9 +135,12 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm bg-white/10 text-white placeholder-white/70 focus:outline-none ${
+                errors.name ? 'border-red-400 focus:ring-red-400' : 'border-white/50 focus:border-white focus:ring-1 focus:ring-white'
+              }`}
               placeholder="Ej: Campeonato Nacional 2026"
             />
+            {errors.name && <p className="mt-1 text-xs text-red-300 font-semibold">{errors.name}</p>}
           </div>
 
           {/* Descripción */}
@@ -151,9 +154,12 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm bg-white/10 text-white placeholder-white/70 focus:outline-none ${
+                errors.description ? 'border-red-400 focus:ring-red-400' : 'border-white/50 focus:border-white focus:ring-1 focus:ring-white'
+              }`}
               placeholder="Describe el torneo..."
             />
+            {errors.description && <p className="mt-1 text-xs text-red-300 font-semibold">{errors.description}</p>}
           </div>
 
           {/* Fecha de Inicio */}
@@ -167,8 +173,11 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
               name="startDate"
               value={formData.startDate}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm bg-white/10 text-white focus:outline-none ${
+                errors.startDate ? 'border-red-400 focus:ring-red-400' : 'border-white/50 focus:border-white focus:ring-1 focus:ring-white'
+              }`}
             />
+            {errors.startDate && <p className="mt-1 text-xs text-red-300 font-semibold">{errors.startDate}</p>}
           </div>
 
           {/* Fecha de Fin */}
@@ -182,8 +191,11 @@ function CreateTournamentModal({ isOpen, onClose, onSubmit }: CreateTournamentMo
               name="endDate"
               value={formData.endDate}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-white/50 px-3 py-2 shadow-sm bg-white/10 text-white focus:border-white focus:ring-1 focus:ring-white focus:outline-none"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 shadow-sm bg-white/10 text-white focus:outline-none ${
+                errors.endDate ? 'border-red-400 focus:ring-red-400' : 'border-white/50 focus:border-white focus:ring-1 focus:ring-white'
+              }`}
             />
+            {errors.endDate && <p className="mt-1 text-xs text-red-300 font-semibold">{errors.endDate}</p>}
           </div>
 
           {/* Botones */}
