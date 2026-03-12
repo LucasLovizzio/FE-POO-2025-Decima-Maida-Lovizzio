@@ -46,7 +46,7 @@ function DetalleTorneoAdmin() {
 
     try {
       setIsLoading(true)
-      const res = await competitionService.getAll(Number(id))
+      const res = await competitionService.getAdminAll(Number(id))
       setCompetitions(res.data)
     } catch (err) {
       const errorMessage = getErrorMessage(err)
