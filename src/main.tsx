@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
+import { ToastProvider } from './context/ToastContext'
 import { AdminRoute } from "./context/AdminRoute";
 import { ParticipantRoute } from "./context/ParticipantRoute";
 
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <ToastProvider>
         <Routes>
 
           {/* Layout principal */}
@@ -74,6 +76,7 @@ createRoot(document.getElementById("root")!).render(
           />
 
         </Routes>
+        </ToastProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>
