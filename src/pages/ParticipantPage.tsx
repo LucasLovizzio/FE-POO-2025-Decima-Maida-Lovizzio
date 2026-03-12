@@ -7,6 +7,7 @@ import type { TournamentResponse, CompetitionResponse, InscriptionResponse } fro
 import InscriptionConfirmationModal from '../components/InscriptionConfirmationModal'
 import { useToast } from '../hooks/useToast'
 import { getErrorMessage } from '../utils/errorHandler'
+import AppHeader from '../components/AppHeader'
 
 interface CompetitionWithTournament extends CompetitionResponse {
   tournamentId: number
@@ -124,33 +125,31 @@ function ParticipantPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-center text-lg text-white">Cargando torneos...</p>
+      <div className="min-h-screen bg-gray-50">
+        <AppHeader />
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-400">Cargando torneos...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
-      <div className="mx-auto max-w-7xl">
-        {/* BOTÓN VOLVER */}
-        <div className="mb-4">
-          <button onClick={() => navigate(-1)} className="text-sm text-white hover:underline">
-            ← Volver
-          </button>
-        </div>
+    <div className="min-h-screen bg-gray-50">
+      <AppHeader />
 
+      <main className="mx-auto max-w-7xl px-6 py-8">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">Torneos Disponibles</h1>
-            <p className="mt-2 text-indigo-100">Inscríbete en las competencias que te interesen</p>
+            <h1 className="text-3xl font-bold text-gray-900">Torneos Disponibles</h1>
+            <p className="mt-1 text-sm text-gray-500">
+              Inscríbete en las competencias que te interesen
+            </p>
           </div>
 
           <button
             onClick={() => navigate('/participant/inscripciones')}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-indigo-600 shadow-lg hover:bg-indigo-50"
+            className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-indigo-600 shadow-sm ring-1 ring-gray-300 transition-colors ring-inset hover:bg-indigo-50"
           >
             Mis Inscripciones
           </button>
@@ -158,8 +157,8 @@ function ParticipantPage() {
 
         {/* Lista de torneos */}
         {tournaments.length === 0 ? (
-          <div className="rounded-lg bg-white p-6 shadow-lg">
-            <p className="text-center text-gray-600">No hay torneos disponibles en este momento.</p>
+          <div className="rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
+            <p className="text-gray-500">No hay torneos disponibles en este momento.</p>
           </div>
         ) : (
           <div className="space-y-6">
@@ -168,7 +167,10 @@ function ParticipantPage() {
               const inscriptionsCount = getInscriptionsCountInTournament(tournament.id)
 
               return (
-                <div key={tournament.id} className="rounded-lg bg-white p-6 shadow-lg">
+                <div
+                  key={tournament.id}
+                  className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+                >
                   {/* Header del torneo */}
                   <div className="mb-4 border-b border-gray-200 pb-4">
                     <h2 className="text-2xl font-bold text-gray-800">{tournament.name}</h2>
@@ -265,7 +267,7 @@ function ParticipantPage() {
             isLoading={isSubmitting}
           />
         )}
-      </div>
+      </main>
     </div>
   )
 }

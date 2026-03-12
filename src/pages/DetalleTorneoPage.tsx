@@ -6,6 +6,7 @@ import { inscriptionService } from '../services/inscriptionService'
 import type { TournamentResponse, CompetitionResponse, InscriptionResponse } from '../types'
 import { useToast } from '../hooks/useToast'
 import { getErrorMessage } from '../utils/errorHandler'
+import AppHeader from '../components/AppHeader'
 
 export default function DetalleTorneoPage() {
   const { id } = useParams()
@@ -67,9 +68,10 @@ export default function DetalleTorneoPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-center text-lg text-white">Cargando torneo...</p>
+      <div className="min-h-screen bg-gray-50">
+        <AppHeader />
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-400">Cargando torneo...</p>
         </div>
       </div>
     )
@@ -77,9 +79,10 @@ export default function DetalleTorneoPage() {
 
   if (!tournament) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-center text-lg text-white">No se encontró el torneo.</p>
+      <div className="min-h-screen bg-gray-50">
+        <AppHeader />
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-400">No se encontró el torneo.</p>
         </div>
       </div>
     )
@@ -88,21 +91,19 @@ export default function DetalleTorneoPage() {
   const hasDiscount = hasDiscountInTournament()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
-      <div className="mx-auto max-w-7xl">
-        {/* Botón volver */}
-        <div className="mb-4">
+    <div className="min-h-screen bg-gray-50">
+      <AppHeader />
+
+      <main className="mx-auto max-w-7xl px-6 py-8">
+        {/* Header del torneo */}
+        <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
           <button
             onClick={() => navigate('/participant')}
-            className="text-sm text-white hover:underline"
+            className="mb-4 flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-700"
           >
             ← Volver a Torneos
           </button>
-        </div>
-
-        {/* Header del torneo */}
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
-          <h1 className="text-3xl font-bold text-gray-800">{tournament.name}</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{tournament.name}</h1>
           <p className="mt-2 text-gray-600">{tournament.description}</p>
           <div className="mt-4 flex gap-6 text-sm text-gray-500">
             <span>
@@ -130,10 +131,10 @@ export default function DetalleTorneoPage() {
         </div>
 
         {/* Competencias */}
-        <h2 className="mb-4 text-2xl font-bold text-white">Competencias</h2>
+        <h2 className="mb-4 text-2xl font-bold text-gray-900">Competencias</h2>
 
         {competitions.length === 0 ? (
-          <div className="rounded-lg bg-white p-6 text-center shadow-lg">
+          <div className="rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
             <p className="text-gray-500">No hay competencias disponibles para este torneo.</p>
           </div>
         ) : (
@@ -143,7 +144,10 @@ export default function DetalleTorneoPage() {
               const finalPrice = calculateFinalPrice(competition.basePrice)
 
               return (
-                <div key={competition.id} className="rounded-lg bg-white p-5 shadow-lg">
+                <div
+                  key={competition.id}
+                  className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+                >
                   <h3 className="mb-3 text-lg font-semibold text-gray-800">{competition.name}</h3>
 
                   <div className="mb-4 space-y-1 text-sm text-gray-600">
@@ -181,7 +185,7 @@ export default function DetalleTorneoPage() {
             })}
           </div>
         )}
-      </div>
+      </main>
     </div>
   )
 }

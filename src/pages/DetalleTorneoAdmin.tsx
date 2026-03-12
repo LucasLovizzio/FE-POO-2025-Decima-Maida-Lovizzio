@@ -5,6 +5,7 @@ import type { CompetitionResponse } from '../types'
 import { useToast } from '../hooks/useToast'
 import { getErrorMessage } from '../utils/errorHandler'
 import { InscriptionModal } from '../components/InscriptionsModal'
+import AppHeader from '../components/AppHeader'
 
 function DetalleTorneoAdmin() {
   const { id } = useParams()
@@ -175,34 +176,37 @@ function DetalleTorneoAdmin() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-center text-white">Cargando competencias...</p>
+      <div className="min-h-screen bg-gray-50">
+        <AppHeader />
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-400">Cargando competencias...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen bg-gray-50">
+      <AppHeader />
+
+      <main className="mx-auto max-w-7xl px-6 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">Gestión de Competencias</h1>
-            <p className="mt-2 text-blue-100">Administra las competencias del torneo</p>
+            <h1 className="text-3xl font-bold text-gray-900">Gestión de Competencias</h1>
+            <p className="mt-1 text-sm text-gray-500">Administra las competencias del torneo</p>
           </div>
           <button
             onClick={() => navigate('/admin')}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg hover:bg-blue-50"
+            className="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
           >
             ← Volver a Torneos
           </button>
         </div>
 
         {/* Formulario Crear Competencia */}
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">Crear Nueva Competencia</h2>
+        <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900">Crear Nueva Competencia</h2>
           <form onSubmit={handleCreateCompetition} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-3">
               <div>
@@ -211,7 +215,7 @@ function DetalleTorneoAdmin() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
                   placeholder="Ej: Categoría Amateur"
                   required
                 />
@@ -223,7 +227,7 @@ function DetalleTorneoAdmin() {
                   step="0.01"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
                   placeholder="100.00"
                   required
                 />
@@ -234,7 +238,7 @@ function DetalleTorneoAdmin() {
                   type="number"
                   value={capacity}
                   onChange={(e) => setCapacity(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
                   placeholder="50"
                   required
                 />
@@ -243,7 +247,7 @@ function DetalleTorneoAdmin() {
             <button
               type="submit"
               disabled={isCreating}
-              className="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 disabled:bg-blue-400"
+              className="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:bg-indigo-300"
             >
               {isCreating ? 'Creando...' : 'Crear Competencia'}
             </button>
@@ -252,8 +256,8 @@ function DetalleTorneoAdmin() {
 
         {/* Formulario Editar (si está activo) */}
         {editingCompetition && (
-          <div className="mb-8 rounded-lg bg-yellow-50 p-6 shadow-lg">
-            <h2 className="mb-4 text-2xl font-bold text-gray-800">Editar Competencia</h2>
+          <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">Editar Competencia</h2>
             <form onSubmit={handleUpdateCompetition} className="space-y-4">
               <div className="grid gap-4 md:grid-cols-3">
                 <div>
@@ -292,7 +296,7 @@ function DetalleTorneoAdmin() {
                 <button
                   type="submit"
                   disabled={isUpdating}
-                  className="rounded-md bg-green-600 px-6 py-2 text-white hover:bg-green-700 disabled:bg-green-400"
+                  className="rounded-lg bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-800 disabled:bg-emerald-300"
                 >
                   {isUpdating ? 'Guardando...' : 'Guardar Cambios'}
                 </button>
@@ -309,8 +313,8 @@ function DetalleTorneoAdmin() {
         )}
 
         {/* Lista de Competencias */}
-        <div className="rounded-lg bg-white p-6 shadow-lg">
-          <h2 className="mb-4 text-2xl font-bold text-gray-800">Competencias Existentes</h2>
+        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900">Competencias Existentes</h2>
 
           {competitions.length === 0 ? (
             <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center">
@@ -324,7 +328,7 @@ function DetalleTorneoAdmin() {
               {competitions.map((comp) => (
                 <div
                   key={comp.id}
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm transition-shadow hover:shadow-md"
+                  className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
                 >
                   <h3 className="mb-2 text-lg font-semibold text-gray-800">{comp.name}</h3>
                   <div className="mb-3 space-y-1 text-sm text-gray-600">
@@ -340,20 +344,20 @@ function DetalleTorneoAdmin() {
                   <div className="flex flex-col gap-2">
                     <button
                       onClick={() => handleViewInscriptions(comp)}
-                      className="w-full rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                      className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
                     >
                       Ver Inscripciones
                     </button>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEditClick(comp)}
-                        className="flex-1 rounded bg-yellow-500 px-3 py-2 text-sm font-semibold text-white hover:bg-yellow-600"
+                        className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
                       >
                         Editar
                       </button>
                       <button
                         onClick={() => handleDeleteCompetition(comp.id)}
-                        className="flex-1 rounded bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-red-600"
+                        className="flex-1 rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 transition-colors hover:bg-red-600 hover:text-white"
                       >
                         Eliminar
                       </button>
@@ -378,7 +382,7 @@ function DetalleTorneoAdmin() {
             competitionName={selectedCompetitionForInscriptions.name}
           />
         )}
-      </div>
+      </main>
     </div>
   )
 }

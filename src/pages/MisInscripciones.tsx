@@ -5,6 +5,7 @@ import type { InscriptionResponse } from '../types'
 import InscriptionDetailModal from '../components/InscriptionDetailModal'
 import { useToast } from '../hooks/useToast'
 import { getErrorMessage } from '../utils/errorHandler'
+import AppHeader from '../components/AppHeader'
 
 function MisInscripciones() {
   const navigate = useNavigate()
@@ -51,29 +52,32 @@ function MisInscripciones() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-center text-white">Cargando inscripciones...</p>
+      <div className="min-h-screen bg-gray-50">
+        <AppHeader />
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-400">Cargando inscripciones...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen bg-gray-50">
+      <AppHeader />
+
+      <main className="mx-auto max-w-7xl px-6 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">Mis Inscripciones</h1>
-            <p className="mt-2 text-indigo-100">
+            <h1 className="text-3xl font-bold text-gray-900">Mis Inscripciones</h1>
+            <p className="mt-1 text-sm text-gray-500">
               Historial completo de tus inscripciones a competencias
             </p>
           </div>
 
           <button
             onClick={() => navigate('/participant')}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-indigo-600 shadow-lg hover:bg-indigo-50"
+            className="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
           >
             ← Volver a Torneos
           </button>
@@ -81,7 +85,7 @@ function MisInscripciones() {
 
         {/* Estado vacío */}
         {inscriptions.length === 0 ? (
-          <div className="rounded-lg bg-white p-12 text-center shadow-lg">
+          <div className="rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
             <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100">
               <svg
                 className="h-12 w-12 text-gray-400"
@@ -98,9 +102,7 @@ function MisInscripciones() {
               </svg>
             </div>
 
-            <h2 className="mb-2 text-2xl font-bold text-gray-800">
-              No tienes inscripciones aún
-            </h2>
+            <h2 className="mb-2 text-2xl font-bold text-gray-800">No tienes inscripciones aún</h2>
 
             <p className="mb-6 text-gray-600">
               Explora los torneos disponibles y comienza a inscribirte en competencias.
@@ -119,7 +121,7 @@ function MisInscripciones() {
               <div
                 key={inscription.id}
                 onClick={() => handleViewDetail(inscription.id)}
-                className="cursor-pointer rounded-lg bg-white p-6 shadow-lg transition-all hover:shadow-xl"
+                className="cursor-pointer rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -127,19 +129,17 @@ function MisInscripciones() {
                       <h3 className="text-xl font-bold text-gray-800">
                         {inscription.tournamentName}
                       </h3>
-                      <p className="text-lg text-indigo-600">
-                        {inscription.competitionName}
-                      </p>
+                      <p className="text-lg text-indigo-600">{inscription.competitionName}</p>
                     </div>
 
                     <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                    <span>
-                      {new Date(inscription.inscriptionDate).toLocaleDateString('es-ES', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </span>
+                      <span>
+                        {new Date(inscription.inscriptionDate).toLocaleDateString('es-ES', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </span>
 
                       <span>ID: #{inscription.id}</span>
                     </div>
@@ -170,7 +170,7 @@ function MisInscripciones() {
             inscriptionId={selectedInscriptionId}
           />
         )}
-      </div>
+      </main>
     </div>
   )
 }
