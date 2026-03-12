@@ -56,14 +56,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = decoded?.sub ?? null
   const role = decoded?.role ?? null
 
-  const login = useCallback(
-    (newToken: string) => {
-      localStorage.setItem('token', newToken)
-      setToken(newToken)
-      navigate('/')
-    },
-    [navigate]
-  )
+  const login = useCallback((newToken: string) => {
+    localStorage.setItem('token', newToken)
+    setToken(newToken)
+    // No navegamos automáticamente, dejamos que cada página decida
+  }, [])
 
   const logout = useCallback(() => {
     localStorage.removeItem('token')

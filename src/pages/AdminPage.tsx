@@ -18,6 +18,7 @@ function AdminPage() {
 
   useEffect(() => {
     loadTournaments()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const loadTournaments = async () => {
@@ -26,15 +27,8 @@ function AdminPage() {
 
       const response = await adminService.getTournaments()
 
-      // Mapeamos la respuesta para forzar que el campo 'published' sea un booleano real
-      // antes de guardarlo en el estado y ordenarlo.
-      const fixedTournaments = response.data.map(tournament => ({
-        ...tournament,
-        // Si viene el string "true" (o el booleano true), esto da true. Si no, false.
-        published: tournament.published === true || tournament.published === 'true'
-      }))
-
-      const sortedTournaments = fixedTournaments.sort((a, b) => {
+      // Ordenar torneos por fecha descendente
+      const sortedTournaments = response.data.sort((a, b) => {
         return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
       })
 
@@ -78,19 +72,14 @@ function AdminPage() {
     }
   }
 
-    return (
+  return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
-
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-indigo-600">
-              Panel de Administración
-            </h1>
+            <h1 className="text-4xl font-bold text-indigo-600">Panel de Administración</h1>
 
-            <p className="mt-2 text-gray-600">
-              Gestión de Torneos
-            </p>
+            <p className="mt-2 text-gray-600">Gestión de Torneos</p>
           </div>
 
           <button
@@ -109,7 +98,6 @@ function AdminPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tournaments.map((tournament) => (
               <div key={tournament.id}>
-
                 <TournamentCard
                   tournament={tournament}
                   onPublish={handlePublishTournament}
@@ -122,7 +110,6 @@ function AdminPage() {
                 >
                   Ver competencias
                 </button>
-
               </div>
             ))}
           </div>
@@ -133,7 +120,6 @@ function AdminPage() {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleCreateTournament}
         />
-
       </div>
     </div>
   )
