@@ -44,11 +44,15 @@ function ParticipantPage() {
 
       setTournaments(tournamentsData)
 
-      // Cargar competencias para cada torneo
+      // Cargar competencias para cada torneo (independiente por torneo para no cortar todo si uno falla)
       const competitionsMap = new Map<number, CompetitionResponse[]>()
       for (const tournament of tournamentsData) {
-        const competitionsResponse = await competitionService.getAll(tournament.id)
-        competitionsMap.set(tournament.id, competitionsResponse.data)
+        try {
+          const competitionsResponse = await competitionService.getAll(tournament.id)
+          competitionsMap.set(tournament.id, competitionsResponse.data)
+        } catch {
+          competitionsMap.set(tournament.id, [])
+        }
       }
       setCompetitions(competitionsMap)
 
@@ -122,7 +126,7 @@ function ParticipantPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
         <div className="mx-auto max-w-7xl">
-          <p className="text-center text-white text-lg">Cargando torneos...</p>
+          <p className="text-center text-lg text-white">Cargando torneos...</p>
         </div>
       </div>
     )
@@ -131,24 +135,17 @@ function ParticipantPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
-
         {/* BOTÓN VOLVER */}
         <div className="mb-4">
-          <button
-            onClick={() => navigate(-1)}
-            className="text-sm text-white hover:underline"
-          >
+          <button onClick={() => navigate(-1)} className="text-sm text-white hover:underline">
             ← Volver
           </button>
         </div>
 
-
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-white">Torneos Disponibles</h1>
-            <p className="mt-2 text-indigo-100">
-              Inscríbete en las competencias que te interesen
-            </p>
+            <p className="mt-2 text-indigo-100">Inscríbete en las competencias que te interesen</p>
           </div>
 
           <button
