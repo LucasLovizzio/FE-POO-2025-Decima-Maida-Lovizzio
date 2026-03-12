@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { adminAccountService } from '../services/adminAccountService'
 import type { AdminAccount } from '../types'
+import { useToast } from '../hooks/useToast'
+import { getErrorMessage } from '../utils/errorHandler'
 
 function GestionAdmins() {
   const [admins, setAdmins] = useState<AdminAccount[]>([])
-  const [error, setError] = useState<string | null>(null)
+  const toast = useToast()
 
   // ⚠️ esto debería venir del login normalmente
   const loggedAdminId = 1
@@ -15,8 +17,8 @@ function GestionAdmins() {
         const res = await adminAccountService.getAll()
         setAdmins(res.data)
       } catch (error) {
-        console.error(error)
-        setError('Error al cargar administradores')
+        const errorMessage = getErrorMessage(error)
+        toast.error(errorMessage)
       }
     }
     loadAdmins()
@@ -30,17 +32,16 @@ function GestionAdmins() {
       await adminAccountService.delete(id)
       // actualizar lista sin recargar
       setAdmins((prev) => prev.filter((admin) => admin.id !== id))
+      toast.success('Administrador eliminado exitosamente')
     } catch (error) {
-      console.error(error)
-      setError('No se pudo eliminar el administrador')
+      const errorMessage = getErrorMessage(error)
+      toast.error(errorMessage)
     }
   }
 
   return (
     <div className="p-8">
       <h1 className="mb-6 text-3xl font-bold">Gestión de Administradores</h1>
-
-      {error && <p className="mb-4 text-red-600">{error}</p>}
 
       <ul className="space-y-4">
         {admins.map((admin) => (

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import Modal from './Modal'
 import { inscriptionService } from '../services/inscriptionService'
 import type { InscriptionDetailResponse } from '../types'
+import { useToast } from '../hooks/useToast'
+import { getErrorMessage } from '../utils/errorHandler'
 
 interface InscriptionDetailModalProps {
   isOpen: boolean
@@ -10,9 +12,9 @@ interface InscriptionDetailModalProps {
 }
 
 function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionDetailModalProps) {
+  const toast = useToast()
   const [detail, setDetail] = useState<InscriptionDetailResponse | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!isOpen || !inscriptionId) return
@@ -20,18 +22,18 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
     const loadDetail = async () => {
       try {
         setIsLoading(true)
-        setError(null)
         const response = await inscriptionService.getById(inscriptionId)
         setDetail(response.data)
       } catch (err: unknown) {
-        const error = err as { response?: { data?: { message?: string } }; message?: string }
-        setError(error.response?.data?.message || error.message || 'Error al cargar el detalle')
+        const errorMessage = getErrorMessage(err)
+        toast.error(errorMessage)
       } finally {
         setIsLoading(false)
       }
     }
 
     loadDetail()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, inscriptionId])
 
   return (
@@ -43,13 +45,7 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
           </div>
         )}
 
-        {error && (
-          <div className="rounded-lg bg-red-100 p-4 text-red-700">
-            <p>{error}</p>
-          </div>
-        )}
-
-        {!isLoading && !error && detail && (
+        {!isLoading && detail && (
           <div className="space-y-4">
             {/* Información de la Inscripción */}
             <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">

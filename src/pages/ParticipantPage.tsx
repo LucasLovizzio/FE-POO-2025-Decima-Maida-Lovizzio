@@ -5,6 +5,8 @@ import { competitionService } from '../services/competitionService'
 import { inscriptionService } from '../services/inscriptionService'
 import type { TournamentResponse, CompetitionResponse, InscriptionResponse } from '../types'
 import InscriptionConfirmationModal from '../components/InscriptionConfirmationModal'
+import { useToast } from '../hooks/useToast'
+import { getErrorMessage } from '../utils/errorHandler'
 
 interface CompetitionWithTournament extends CompetitionResponse {
   tournamentId: number
@@ -14,11 +16,11 @@ interface CompetitionWithTournament extends CompetitionResponse {
 
 function ParticipantPage() {
   const navigate = useNavigate()
+  const toast = useToast()
   const [tournaments, setTournaments] = useState<TournamentResponse[]>([])
   const [competitions, setCompetitions] = useState<Map<number, CompetitionResponse[]>>(new Map())
   const [myInscriptions, setMyInscriptions] = useState<InscriptionResponse[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,19 +28,18 @@ function ParticipantPage() {
     null
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
   useEffect(() => {
     loadData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const loadData = async () => {
     try {
       setIsLoading(true)
-      setError(null)
 
       // Cargar torneos
-      const tournamentsResponse = await tournamentService.getAll()
+      const tournamentsResponse = await tournamentService.getTournaments()
       const tournamentsData = tournamentsResponse.data
 
       setTournaments(tournamentsData)
@@ -55,8 +56,8 @@ function ParticipantPage() {
       const inscriptionsResponse = await inscriptionService.getMine()
       setMyInscriptions(inscriptionsResponse.data)
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Error al cargar los datos'
-      setError(errorMessage)
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -98,40 +99,20 @@ function ParticipantPage() {
 
     try {
       setIsSubmitting(true)
-      setError(null)
 
       await inscriptionService.create(selectedCompetition.tournamentId, selectedCompetition.id)
 
       // Recargar datos para actualizar la vista
       await loadData()
 
-      setSuccessMessage(`¡Te has inscrito exitosamente en ${selectedCompetition.name}!`)
+      toast.success(`¡Te has inscrito exitosamente en ${selectedCompetition.name}!`)
       setIsModalOpen(false)
       setSelectedCompetition(null)
-
-      // Limpiar mensaje de éxito después de 5 segundos
-      setTimeout(() => setSuccessMessage(null), 5000)
     } catch (err: unknown) {
-      const error = err as {
-        response?: { status?: number; data?: { message?: string } }
-        message?: string
-      }
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
       setIsModalOpen(false)
       setSelectedCompetition(null)
-
-      // Manejar errores específicos según documentación del backend
-      if (error.response?.status === 404) {
-        setError('Competencia no encontrada.')
-      } else if (error.response?.status === 400) {
-        // El backend devuelve el mensaje en la respuesta
-        const errorMessage = error.response?.data?.message || error.message || 'Error desconocido'
-        // Mostrar el mensaje del backend directamente
-        setError(errorMessage)
-      } else {
-        const errorMessage =
-          error.response?.data?.message || error.message || 'Error al inscribirse en la competencia'
-        setError(errorMessage)
-      }
     } finally {
       setIsSubmitting(false)
     }
@@ -162,13 +143,6 @@ function ParticipantPage() {
             Mis Inscripciones
           </button>
         </div>
-
-        {/* Mensajes de feedback */}
-        {error && <div className="mb-4 rounded-lg bg-red-600 p-4 text-white">{error}</div>}
-
-        {successMessage && (
-          <div className="mb-4 rounded-lg bg-green-600 p-4 text-white">{successMessage}</div>
-        )}
 
         {/* Lista de torneos */}
         {tournaments.length === 0 ? (
@@ -284,4 +258,4 @@ function ParticipantPage() {
   )
 }
 
-export default ParticipantPage;
+export default ParticipantPage

@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { inscriptionService } from '../services/inscriptionService'
 import type { InscriptionResponse } from '../types'
 import InscriptionDetailModal from '../components/InscriptionDetailModal'
+import { useToast } from '../hooks/useToast'
+import { getErrorMessage } from '../utils/errorHandler'
 
 function MisInscripciones() {
   const navigate = useNavigate()
+  const toast = useToast()
   const [inscriptions, setInscriptions] = useState<InscriptionResponse[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -16,12 +18,12 @@ function MisInscripciones() {
 
   useEffect(() => {
     loadInscriptions()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const loadInscriptions = async () => {
     try {
       setIsLoading(true)
-      setError(null)
 
       const response = await inscriptionService.getMine()
       // Ordenar por fecha descendente (más reciente primero)
@@ -30,10 +32,8 @@ function MisInscripciones() {
       })
       setInscriptions(sortedInscriptions)
     } catch (err: unknown) {
-      const error = err as { response?: { data?: { message?: string } }; message?: string }
-      const errorMessage =
-        error.response?.data?.message || error.message || 'Error al cargar las inscripciones'
-      setError(errorMessage)
+      const errorMessage = getErrorMessage(err)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -78,15 +78,8 @@ function MisInscripciones() {
           </button>
         </div>
 
-        {/* Mensaje de error */}
-        {error && (
-          <div className="mb-4 rounded-lg bg-red-600 p-4 text-white">
-            <p>{error}</p>
-          </div>
-        )}
-
         {/* Estado vacío */}
-        {!error && inscriptions.length === 0 ? (
+        {inscriptions.length === 0 ? (
           <div className="rounded-lg bg-white p-12 text-center shadow-lg">
             <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100">
               <svg
