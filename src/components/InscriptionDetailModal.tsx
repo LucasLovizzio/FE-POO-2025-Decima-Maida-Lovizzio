@@ -38,25 +38,29 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Detalle de Inscripción">
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         {isLoading && (
-          <div className="text-center text-gray-600">
-            <p>Cargando detalle...</p>
+          <div className="text-center">
+          <p className="text-sm text-gray-500">Cargando detalle...</p>
           </div>
         )}
 
         {!isLoading && detail && (
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             {/* Información de la Inscripción */}
-            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-              <h3 className="mb-3 text-lg font-semibold text-gray-800">Información General</h3>
-              <div className="space-y-2 text-sm">
+            <div className="rounded-lg border border-gray-200 bg-white p-4">
+              <h3 className="mb-3 text-base font-semibold text-gray-900">
+                Información General
+              </h3>
+              <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">ID de Inscripción:</span>
-                  <span className="font-medium text-gray-900">#{detail.inscriptionId}</span>
+                  <span className="text-gray-500">
+                    ID de Inscripción:</span>
+                  <span className="font-medium text-gray-900">
+                    #{detail.inscriptionId}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Fecha de Inscripción:</span>
+                  <span className="text-gray-500">Fecha de Inscripción:</span>
                   <span className="font-medium text-gray-900">
                     {new Date(detail.inscriptionDate).toLocaleDateString('es-ES', {
                       year: 'numeric',
@@ -68,8 +72,9 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Precio Final:</span>
-                  <span className="text-lg font-bold text-green-600">
+                  <span className="text-gray-500">
+                    Precio Final:</span>
+                  <span className="text-base font-semibold text-gray-900">
                     ${detail.finalPrice.toFixed(2)}
                   </span>
                 </div>
@@ -77,38 +82,43 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
             </div>
 
             {/* Información de la Competencia */}
-            <div className="rounded-lg border border-gray-200 bg-blue-50 p-4">
-              <h3 className="mb-3 text-lg font-semibold text-gray-800">Competencia</h3>
-              <div className="space-y-2 text-sm">
+            <div className="rounded-lg border border-gray-200 bg-white p-4">
+              <h3 className="mb-3 text-lg font-semibold text-gray-900">
+                Competencia</h3>
+
+              <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">ID:</span>
-                  <span className="font-medium text-gray-900">#{detail.competitionId}</span>
+                  <span className="text-gray-500">ID:</span>
+                  <span className="font-medium text-gray-900">
+                    #{detail.competitionId}</span>
                 </div>
                 <div>
-                  <span className="text-gray-600">Nombre:</span>
+                  <span className="text-gray-500">Nombre:</span>
                   <p className="mt-1 font-medium text-gray-900">{detail.competitionName}</p>
                 </div>
               </div>
             </div>
 
             {/* Información del Torneo */}
-            <div className="rounded-lg border border-gray-200 bg-purple-50 p-4">
-              <h3 className="mb-3 text-lg font-semibold text-gray-800">Torneo</h3>
-              <div className="space-y-2 text-sm">
+            <div className="rounded-lg border border-gray-200 bg-white p-4">
+              <h3 className="mb-3 text-base font-semibold text-gray-900">
+                Torneo
+              </h3>
+              <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">ID:</span>
+                  <span className="text-gray-500">ID:</span>
                   <span className="font-medium text-gray-900">#{detail.tournamentId}</span>
                 </div>
                 <div>
-                  <span className="text-gray-600">Nombre:</span>
+                  <span className="text-gray-500">Nombre:</span>
                   <p className="mt-1 font-medium text-gray-900">{detail.tournamentName}</p>
                 </div>
                 <div>
-                  <span className="text-gray-600">Descripción:</span>
+                  <span className="text-gray-500">Descripción:</span>
                   <p className="mt-1 text-gray-700">{detail.tournamentDescription}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Fecha de Inicio:</span>
+                  <span className="text-gray-500">Fecha de Inicio:</span>
                   <span className="font-medium text-gray-900">
                     {new Date(detail.tournamentStartDate).toLocaleDateString('es-ES', {
                       year: 'numeric',
@@ -118,7 +128,7 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Fecha de Fin:</span>
+                  <span className="text-gray-500">Fecha de Fin:</span>
                   <span className="font-medium text-gray-900">
                     {new Date(detail.tournamentFinishDate).toLocaleDateString('es-ES', {
                       year: 'numeric',
@@ -133,7 +143,7 @@ function InscriptionDetailModal({ isOpen, onClose, inscriptionId }: InscriptionD
             {/* Botón Cerrar */}
             <button
               onClick={onClose}
-              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+              className="w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Cerrar
             </button>

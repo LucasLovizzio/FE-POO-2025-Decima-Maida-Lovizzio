@@ -60,19 +60,20 @@ function MisInscripciones() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-white">Mis Inscripciones</h1>
-            <p className="mt-2 text-blue-100">
+            <p className="mt-2 text-indigo-100">
               Historial completo de tus inscripciones a competencias
             </p>
           </div>
+
           <button
             onClick={() => navigate('/participant')}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg hover:bg-blue-50"
+            className="rounded-md bg-white px-6 py-3 font-semibold text-indigo-600 shadow-lg hover:bg-indigo-50"
           >
             ← Volver a Torneos
           </button>
@@ -96,19 +97,23 @@ function MisInscripciones() {
                 />
               </svg>
             </div>
-            <h2 className="mb-2 text-2xl font-bold text-gray-800">No tienes inscripciones aún</h2>
+
+            <h2 className="mb-2 text-2xl font-bold text-gray-800">
+              No tienes inscripciones aún
+            </h2>
+
             <p className="mb-6 text-gray-600">
               Explora los torneos disponibles y comienza a inscribirte en competencias.
             </p>
+
             <button
               onClick={() => navigate('/participant')}
-              className="rounded-md bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+              className="rounded-md bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700"
             >
               Ver Torneos Disponibles
             </button>
           </div>
         ) : (
-          /* Lista de inscripciones */
           <div className="space-y-4">
             {inscriptions.map((inscription) => (
               <div
@@ -118,59 +123,28 @@ function MisInscripciones() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    {/* Información principal */}
                     <div className="mb-3">
                       <h3 className="text-xl font-bold text-gray-800">
                         {inscription.tournamentName}
                       </h3>
-                      <p className="text-lg text-blue-600">{inscription.competitionName}</p>
+                      <p className="text-lg text-indigo-600">
+                        {inscription.competitionName}
+                      </p>
                     </div>
 
-                    {/* Detalles */}
                     <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                      <div className="flex items-center gap-1">
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        <span>
-                          {new Date(inscription.inscriptionDate).toLocaleDateString('es-ES', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
-                        </span>
-                      </div>
+                    <span>
+                      {new Date(inscription.inscriptionDate).toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </span>
 
-                      <div className="flex items-center gap-1">
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-                          />
-                        </svg>
-                        <span>ID: #{inscription.id}</span>
-                      </div>
+                      <span>ID: #{inscription.id}</span>
                     </div>
                   </div>
 
-                  {/* Precio y botón */}
                   <div className="ml-4 flex flex-col items-end justify-between">
                     <div className="mb-2 text-right">
                       <p className="text-sm text-gray-600">Precio pagado</p>
@@ -178,21 +152,9 @@ function MisInscripciones() {
                         ${inscription.finalPrice.toFixed(2)}
                       </p>
                     </div>
-                    <button className="flex items-center gap-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">
+
+                    <button className="flex items-center gap-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
                       Ver detalle
-                      <svg
-                        className="h-4 w-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
                     </button>
                   </div>
                 </div>
@@ -201,7 +163,6 @@ function MisInscripciones() {
           </div>
         )}
 
-        {/* Modal de detalle */}
         {selectedInscriptionId && (
           <InscriptionDetailModal
             isOpen={isModalOpen}

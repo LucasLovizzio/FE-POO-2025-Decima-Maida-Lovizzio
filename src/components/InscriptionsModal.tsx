@@ -51,15 +51,15 @@ export const InscriptionModal = ({
       onClose={onClose}
       title={`Inscripciones: ${competitionName || 'Competencia'}`}
     >
-      <div className="flex min-h-[300px] min-w-[500px] flex-col space-y-4 p-4">
+      <div className="flex min-h-[300px] min-w-[500px] flex-col gap-4">
         {/* ESTADO: CARGANDO */}
         {isLoading ? (
           <div className="flex flex-1 items-center justify-center">
-            <span className="text-gray-500">Cargando inscripciones...</span>
+            <p className="text-sm text-gray-500">Cargando inscripciones...</p>
           </div>
         ) : /* ESTADO: VACÍO (Criterio de Aceptación) */
         inscriptions.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
+          <div className="flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 p-8 text-center">
             <p className="text-lg font-medium text-gray-900">Sin inscripciones</p>
             <p className="text-sm text-gray-500">
               Aún no hay participantes registrados en esta competencia.

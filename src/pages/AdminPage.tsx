@@ -70,18 +70,24 @@ function AdminPage() {
     }
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8">
+    return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-8">
       <div className="mx-auto max-w-7xl">
+
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white">Panel de Administración</h1>
-            <p className="mt-2 text-blue-100">Gestión de Torneos</p>
+            <h1 className="text-4xl font-bold text-indigo-600">
+              Panel de Administración
+            </h1>
+
+            <p className="mt-2 text-gray-600">
+              Gestión de Torneos
+            </p>
           </div>
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg hover:bg-blue-50"
+            className="rounded-md bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg hover:bg-indigo-700"
           >
             + Crear Torneo
           </button>
@@ -95,6 +101,7 @@ function AdminPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tournaments.map((tournament) => (
               <div key={tournament.id}>
+
                 <TournamentCard
                   tournament={tournament}
                   onPublish={handlePublishTournament}
@@ -102,11 +109,12 @@ function AdminPage() {
                 />
 
                 <button
-                  className="mt-2 w-full rounded bg-blue-500 py-2 text-white"
+                  className="mt-2 w-full rounded bg-indigo-600 py-2 text-white hover:bg-indigo-700"
                   onClick={() => navigate(`/admin/tournaments/${tournament.id}`)}
                 >
                   Ver competencias
                 </button>
+
               </div>
             ))}
           </div>
@@ -117,6 +125,7 @@ function AdminPage() {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleCreateTournament}
         />
+
       </div>
     </div>
   )

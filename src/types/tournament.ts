@@ -56,3 +56,11 @@ export interface TournamentListItem {
  * Lista de torneos
  */
 export type TournamentList = TournamentResponse[]
+
+export type tournament = {
+  id: number;
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+};
