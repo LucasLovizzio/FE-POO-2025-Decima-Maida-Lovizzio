@@ -7,6 +7,7 @@ import type { TournamentResponse, CompetitionResponse, InscriptionResponse } fro
 import { useToast } from '../hooks/useToast'
 import { getErrorMessage } from '../utils/errorHandler'
 import AppHeader from '../components/AppHeader'
+import InscriptionConfirmationModal from '../components/InscriptionConfirmationModal'
 
 export default function DetalleTorneoPage() {
   const { id } = useParams()
@@ -18,6 +19,10 @@ export default function DetalleTorneoPage() {
   const [myInscriptions, setMyInscriptions] = useState<InscriptionResponse[]>([])
   const [loading, setLoading] = useState(true)
   const [inscribing, setInscribing] = useState<number | null>(null)
+
+  // Modal de confirmación
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedCompetition, setSelectedCompetition] = useState<CompetitionResponse | null>(null)
 
   useEffect(() => {
     if (!id) return
@@ -58,12 +63,19 @@ export default function DetalleTorneoPage() {
       await inscriptionService.create(Number(id), competitionId)
       const inscriptionsRes = await inscriptionService.getMine()
       setMyInscriptions(inscriptionsRes.data)
+      setModalOpen(false)
+      setSelectedCompetition(null)
       toast.success('¡Inscripción exitosa!')
     } catch (error) {
       toast.error(getErrorMessage(error))
     } finally {
       setInscribing(null)
     }
+  }
+
+  const handleOpenModal = (competition: CompetitionResponse) => {
+    setSelectedCompetition(competition)
+    setModalOpen(true)
   }
 
   if (loading) {
@@ -174,7 +186,7 @@ export default function DetalleTorneoPage() {
                   ) : (
                     <button
                       disabled={inscribing === competition.id}
-                      onClick={() => handleInscribirse(competition.id)}
+                      onClick={() => handleOpenModal(competition)}
                       className="w-full rounded bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:bg-indigo-400"
                     >
                       {inscribing === competition.id ? 'Inscribiendo...' : 'Inscribirse'}
@@ -184,6 +196,22 @@ export default function DetalleTorneoPage() {
               )
             })}
           </div>
+        )}
+
+        {selectedCompetition && (
+          <InscriptionConfirmationModal
+            isOpen={modalOpen}
+            onClose={() => {
+              setModalOpen(false)
+              setSelectedCompetition(null)
+            }}
+            onConfirm={() => handleInscribirse(selectedCompetition.id)}
+            competitionName={selectedCompetition.name}
+            basePrice={selectedCompetition.basePrice}
+            finalPrice={calculateFinalPrice(selectedCompetition.basePrice)}
+            hasDiscount={hasDiscount}
+            isLoading={inscribing === selectedCompetition.id}
+          />
         )}
       </main>
     </div>
