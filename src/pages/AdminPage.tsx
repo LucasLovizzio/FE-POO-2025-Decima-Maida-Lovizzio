@@ -102,6 +102,7 @@ function AdminPage() {
                   tournament={tournament}
                   onPublish={handlePublishTournament}
                   isPublishing={publishingId === tournament.id}
+                  linkTo={`/admin/tournaments/${tournament.id}`}
                 />
 
                 <button
