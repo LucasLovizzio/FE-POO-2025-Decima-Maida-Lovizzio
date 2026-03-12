@@ -35,3 +35,11 @@ export interface CompetitionResponse {
  * Lista de competencias
  */
 export type CompetitionList = CompetitionResponse[]
+
+export type competition = {
+  id: number;
+  name: string;
+  basePrice: number;
+  capacity: number;
+  availableSlots: number;
+};
