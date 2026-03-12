@@ -46,6 +46,7 @@ export interface TournamentResponse {
  * Item de lista de torneos (usado en admin tournaments list)
  */
 export interface TournamentListItem {
+  id: number
   name: string
   startDate: string
   endDate: string
@@ -56,11 +57,3 @@ export interface TournamentListItem {
  * Lista de torneos
  */
 export type TournamentList = TournamentResponse[]
-
-export type tournament = {
-  id: number;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-};
